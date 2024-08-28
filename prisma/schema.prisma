@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  username String @id @db.VarChar(100)
+  password String @db.VarChar(100)
+  email String @unique @db.VarChar(100)
+  token String? @db.VarChar(100)
+
+  competitions Competition[]
+  portfolio Portfolio?
+
+  @@map("users")
+}
+
+// enum untuk region
+enum Region {
+  INTERNATIONAL
+  NATIONAL
+  REGIONAL
+  CAMPUS
+}
+
+// enum untuk category
+enum Category {
+  Programming
+  DataScience
+  Design
+  Sport
+  Research
+}
+
+// enum untuk predicate
+enum Predicate {
+  FirstPlace
+  SecondPlace
+  ThirdPlace
+  HonorableMention
+  Finalist
+  Participant
+}
+
+model Competition {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100)
+  year DateTime @db.DateTime()
+  region Region
+  category Category
+  predicate Predicate?
+  username String @db.VarChar(100)
+
+  user User @relation(fields: [username], references: [username])
+
+  @@map("competition")
+}
+
+model Portfolio {
+  id Int @id @default(autoincrement())
+  full_name String @db.VarChar(100)
+  place_of_birth String @db.VarChar(100)
+  date_of_birth DateTime @db.DateTime()
+  phone_number Int @db.Int
+  linkedin String? @db.VarChar(100)
+  github String? @db.VarChar(100)
+  instagram String? @db.VarChar(100)
+  website String? @db.VarChar(100)
+  domicile String @db.VarChar(100)
+  summary String? @db.VarChar(300)
+  username String @unique @db.VarChar(100)
+
+  user User @relation(fields: [username], references: [username])
+
+  @@map("portfolio")
+}
+
