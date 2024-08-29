@@ -359,4 +359,21 @@ describe("GET /api/competitions", () => {
     expect(response.body.paging.size).toBe(10);
   });
 
+  it("should be able to search competition with paging", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .query({
+        page: 2,
+        size: 1,
+      })
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(0);
+    expect(response.body.paging.current_page).toBe(2);
+    expect(response.body.paging.total_page).toBe(1);
+    expect(response.body.paging.size).toBe(1);
+  });
+
 });

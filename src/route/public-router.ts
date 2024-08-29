@@ -7,4 +7,4 @@ export const publicRouter = express.Router();
 publicRouter.post("/api/users", UserController.register);
 
 // TODO: User login route
-publicRouter.post("/api/users/login", UserController.login) 
+publicRouter.post("/api/users/login", UserController.login);
