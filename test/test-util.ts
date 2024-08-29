@@ -50,7 +50,7 @@ export class CompetitionTest {
     await prismaClient.competition.create({
       data: {
         name: "test",
-        year: new Date(),
+        year: new Date("2024"),
         region: Region.NATIONAL,
         category: Category.Design,
         predicate: Predicate.Participant,

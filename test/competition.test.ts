@@ -278,4 +278,85 @@ describe("GET /api/competitions", () => {
     expect(response.body.paging.total_page).toBe(1);
     expect(response.body.paging.size).toBe(10);
   });
+
+  it("should be able to search competition using name", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .query({
+        name: "te",
+      })
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+    expect(response.body.paging.current_page).toBe(1);
+    expect(response.body.paging.total_page).toBe(1);
+    expect(response.body.paging.size).toBe(10);
+  });
+
+  it("should be able to search competition using year", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .query({
+        year: "2024",
+      })
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+    expect(response.body.paging.current_page).toBe(1);
+    expect(response.body.paging.total_page).toBe(1);
+    expect(response.body.paging.size).toBe(10);
+  });
+
+  it("should be able to search competition using region", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .query({
+        region: "NATIONAL",
+      })
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+    expect(response.body.paging.current_page).toBe(1);
+    expect(response.body.paging.total_page).toBe(1);
+    expect(response.body.paging.size).toBe(10);
+  });
+
+  it("should be able to search competition using category", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .query({
+        category: "Design",
+      })
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+    expect(response.body.paging.current_page).toBe(1);
+    expect(response.body.paging.total_page).toBe(1);
+    expect(response.body.paging.size).toBe(10);
+  });
+
+  it("should be able to search competition using predicate", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .query({
+        predicate: "Participant",
+      })
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+    expect(response.body.paging.current_page).toBe(1);
+    expect(response.body.paging.total_page).toBe(1);
+    expect(response.body.paging.size).toBe(10);
+  });
+
 });

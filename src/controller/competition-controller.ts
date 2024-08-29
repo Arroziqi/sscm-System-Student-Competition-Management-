@@ -3,10 +3,9 @@ import {
   SearchCompetitionRequest,
   UpdateCompetitionRequest,
 } from "../model/competition-model";
-import { NextFunction, request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { CompetitionService } from "../service/competition-service";
 import { UserRequest } from "../type/user-request";
-import { logger } from "../application/logging";
 import { Category, Predicate, Region } from "@prisma/client";
 
 export class CompetitionController {

@@ -82,7 +82,7 @@ export class CompetitionService {
   }
 
   static async search(user: User, request: SearchCompetitionRequest): Promise<PageAble<CompetitionResponse>>{
-    // Parse year to Date
+    // TODO: Parse year to Date
     if (request.year) {
         const parsedYear = new Date(request.year);
         if (isNaN(parsedYear.getTime())) { // Cek jika date tidak valid
@@ -91,7 +91,9 @@ export class CompetitionService {
         }
         request.year = parsedYear;
     }
-    console.log("year : " + typeof(request.year), request.year)
+
+    // console.log("query name : " + typeof request.name, request.name)
+
     // TODO: Validate request
     const searchRequest = Validation.validate(CompetitionValidation.SEARCH, request);
 
