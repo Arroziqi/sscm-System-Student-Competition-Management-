@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Category, Competition, Predicate, Region, User } from "@prisma/client";
 import { prismaClient } from "../src/application/database";
 import bcrypt from "bcrypt";
 
@@ -29,10 +29,47 @@ export class UserTest {
       },
     });
 
-    if(!user){
+    if (!user) {
       throw new Error("User not found");
     }
 
     return user;
+  }
+}
+
+export class CompetitionTest {
+  static async deleteAll() {
+    await prismaClient.competition.deleteMany({
+      where: {
+        username: "test",
+      },
+    });
+  }
+
+  static async create() {
+    await prismaClient.competition.create({
+      data: {
+        name: "test",
+        year: new Date(),
+        region: Region.NATIONAL,
+        category: Category.Design,
+        predicate: Predicate.Participant,
+        username: "test",
+      },
+    });
+  }
+
+  static async get(): Promise<Competition> {
+    const comp = await prismaClient.competition.findFirst({
+      where: {
+        username: "test",
+      },
+    });
+
+    if (!comp) {
+      throw new Error("Competition not found");
+    }
+
+    return comp;
   }
 }

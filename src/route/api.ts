@@ -13,3 +13,8 @@ apiRouter.delete("/api/users/current", UserController.logout);
 
 // Competition API
 apiRouter.post("/api/competitions", CompetitionController.create);
+apiRouter.get("/api/competitions/:competitionId(\\d+)", CompetitionController.get);
+apiRouter.put("/api/competitions/:competitionId(\\d+)", CompetitionController.update);
+apiRouter.delete("/api/competitions/:competitionId(\\d+)", CompetitionController.remove);
+apiRouter.get("/api/competitions", CompetitionController.search);
+
