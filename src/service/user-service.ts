@@ -1,9 +1,11 @@
+import { User } from "@prisma/client";
 import { prismaClient } from "../application/database";
 import { ResponseError } from "../error/response-error";
 import {
   CreateUserRequest,
   LoginUserRequest,
   toUserResponse,
+  UpdateUserRequest,
   UserResponse,
 } from "../model/user-model";
 import { UserValidataion } from "../validation/user-validation";
@@ -87,5 +89,54 @@ export class UserService {
     const response = toUserResponse(user);
     response.token = user.token!;
     return response;
+  }
+
+  // TODO: Get user
+  static async get(user: User): Promise<UserResponse> {
+    return toUserResponse(user);
+  }
+
+  // TODO: Update user
+  static async update(
+    user: User,
+    request: UpdateUserRequest
+  ): Promise<UserResponse> {
+    // TODO: Validate request
+    const updateRequest = Validation.validate(UserValidataion.UPDATE, request);
+
+    // TODO: Update password
+    if (updateRequest.password) {
+      user.password = await bcrypt.hash(updateRequest.password, 10);
+    }
+
+    // TODO: Update email
+    if (updateRequest.email) {
+      user.email = updateRequest.email;
+    }
+
+    // TODO: Update user
+    const updatedUser = await prismaClient.user.update({
+      where: {
+        username: user.username,
+      },
+      data: user,
+    });
+
+    // TODO: Convert user to UserResponse
+    return toUserResponse(updatedUser);
+  }
+
+  // TODO: Logout user
+  static async logout(user: User): Promise<UserResponse> {
+    const logoutedUser = await prismaClient.user.update({
+      where: {
+        username: user.username,
+      },
+      data: {
+        token: null,
+      },
+    });
+
+    return toUserResponse(logoutedUser);
   }
 }

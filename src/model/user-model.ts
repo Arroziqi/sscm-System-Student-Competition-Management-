@@ -16,6 +16,11 @@ export type LoginUserRequest = {
   password: string;
 }
 
+export type UpdateUserRequest = {
+  email?: string;
+  password?: string;
+}
+
 // helper functions to convert User to UserResponse
 export function toUserResponse(user: User): UserResponse{
   return {
