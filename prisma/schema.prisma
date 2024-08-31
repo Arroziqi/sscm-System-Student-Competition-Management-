@@ -37,7 +37,7 @@ model Portfolio {
   full_name      String   @db.VarChar(100)
   place_of_birth String   @db.VarChar(100)
   date_of_birth  DateTime @db.DateTime(0)
-  phone_number   Int
+  phone_number   String @db.VarChar(20)
   linkedin       String?  @db.VarChar(100)
   github         String?  @db.VarChar(100)
   instagram      String?  @db.VarChar(100)

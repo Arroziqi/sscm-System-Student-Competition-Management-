@@ -73,3 +73,31 @@ export class CompetitionTest {
     return comp;
   }
 }
+
+export class PortfolioTest {
+  static async deleteAll() {
+    await prismaClient.portfolio.deleteMany({
+      where: {
+        username: "test",
+      },
+    });
+  }
+
+  static async create() {
+    await prismaClient.portfolio.create({
+      data: {
+        username: "test",
+        full_name: "test",
+        place_of_birth: "test",
+        date_of_birth: new Date(),
+        phone_number: "1234567892",
+        domicile: "test",
+        summary: "test",
+        linkedin: "test",
+        github: "test",
+        instagram: "test",
+        website: "test",
+      },
+    });
+  }
+}

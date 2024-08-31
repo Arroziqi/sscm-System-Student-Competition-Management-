@@ -254,7 +254,7 @@ describe("DELETE /api/competitions/:competitionId", () => {
   });
 });
 
-describe("GET /api/competitions", () => {
+describe("GET /api/competitions/search", () => {
   beforeEach(async () => {
     await UserTest.create();
     await CompetitionTest.create();
@@ -268,7 +268,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to get all competitions", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .set("X-API-TOKEN", "test");
 
     logger.debug(response.body);
@@ -281,7 +281,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to search competition using name", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .query({
         name: "te",
       })
@@ -297,7 +297,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to search competition using year", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .query({
         year: "2024",
       })
@@ -313,7 +313,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to search competition using region", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .query({
         region: "NATIONAL",
       })
@@ -329,7 +329,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to search competition using category", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .query({
         category: "Design",
       })
@@ -345,7 +345,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to search competition using predicate", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .query({
         predicate: "Participant",
       })
@@ -361,7 +361,7 @@ describe("GET /api/competitions", () => {
 
   it("should be able to search competition with paging", async () => {
     const response = await supertest(web)
-      .get("/api/competitions")
+      .get("/api/competitions/search")
       .query({
         page: 2,
         size: 1,
@@ -375,5 +375,40 @@ describe("GET /api/competitions", () => {
     expect(response.body.paging.total_page).toBe(1);
     expect(response.body.paging.size).toBe(1);
   });
+});
 
+describe("GET /api/competitions", () => {
+  // TODO: create competition & user before test
+  beforeEach(async () => {
+    await UserTest.create();
+    await CompetitionTest.create();
+  });
+
+  // TODO: delete competition & user after test
+  afterEach(async () => {
+    await CompetitionTest.deleteAll();
+    await UserTest.delete();
+  });
+
+  // test get all competition
+  it("should be able to get all competition", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .set("X-API-TOKEN", "test");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(200);
+    expect(response.body.data.length).toBe(1);
+  });
+
+  // test get all competition if there is no competition
+  it("should reject get all competition if there is no competition", async () => {
+    const response = await supertest(web)
+      .get("/api/competitions")
+      .set("X-API-TOKEN", "wrong");
+
+    logger.debug(response.body);
+    expect(response.status).toBe(401);
+    expect(response.body.errors).toBeDefined();
+  });
 });

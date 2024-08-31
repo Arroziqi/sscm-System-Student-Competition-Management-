@@ -7,8 +7,8 @@ exports.publicRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("../controller/user-controller");
 exports.publicRouter = express_1.default.Router();
-// test
 exports.publicRouter.get("/", (req, res) => {
+    console.log("Public route accessed");
     res.status(200).json({ data: "Hello World" });
 });
 // TODO: User register route

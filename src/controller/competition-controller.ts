@@ -103,4 +103,15 @@ export class CompetitionController {
       next(e);
     }
   }
+
+  static async list(user: UserRequest, res: Response, next: NextFunction) {
+    try {
+      const response = await CompetitionService.list(user.user!);
+      res.status(200).json({
+        data: response,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
