@@ -1,4 +1,4 @@
-import { Category, Competition, Predicate, Region, User } from "@prisma/client";
+import { Category, Competition, Experience, Predicate, Region, User } from "@prisma/client";
 import { prismaClient } from "../src/application/database";
 import bcrypt from "bcrypt";
 
@@ -99,5 +99,44 @@ export class PortfolioTest {
         website: "test",
       },
     });
+  }
+}
+
+export class ExperienceTest{
+  static async create() {
+    await prismaClient.experience.create({
+      data: {
+        username: "test",
+        company_name: "test",
+        position: "test",
+        status: "CONTRACT",
+        description: "test",
+        place: "test",
+        start_date: new Date(),
+        end_date: new Date(),
+      },
+    });
+  }
+
+  static async deleteAll() {
+    await prismaClient.experience.deleteMany({
+      where: {
+        username: "test",
+      },
+    });
+  }
+
+  static async get(): Promise<Experience> {
+    const comp = await prismaClient.experience.findFirst({
+      where: {
+        username: "test",
+      },
+    });
+
+    if (!comp) {
+      throw new Error("Experience not found");
+    }
+
+    return comp;
   }
 }

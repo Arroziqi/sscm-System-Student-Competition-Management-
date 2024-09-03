@@ -48,7 +48,7 @@ Response Body (Failed) :
 
 ## Get
 
-Endpoint : GET /api/experience/:idExperience
+Endpoint : GET /api/experience/:experienceId
 
 Request Header : 
 - X-API-TOKEN : token
@@ -80,7 +80,7 @@ Response Body (Failed) :
 
 ## Update
 
-Endpoint : PUT /api/experience/:idExperience
+Endpoint : PUT /api/experience/:experienceId
 
 Request Header : 
 - X-API-TOKEN : token
@@ -170,7 +170,7 @@ Response Body (Failed) :
 
 ## Remove
 
-Endpoint : DELETE /api/experience/:idExperience
+Endpoint : DELETE /api/experience/:experienceId
 
 Request Header : 
 - X-API-TOKEN : token

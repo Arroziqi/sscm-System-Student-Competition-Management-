@@ -3,6 +3,7 @@ import { authMiddleware } from "../middleware/auth-middleware";
 import { UserController } from "../controller/user-controller";
 import { CompetitionController } from "../controller/competition-controller";
 import { PortfolioController } from "../controller/portfolio-controller";
+import { ExperienceController } from "../controller/experience-controller";
 
 export const apiRouter = express.Router();
 apiRouter.use(authMiddleware);
@@ -33,3 +34,16 @@ apiRouter.get("/api/competitions", CompetitionController.list);
 apiRouter.post("/api/portfolio", PortfolioController.create);
 apiRouter.put("/api/portfolio", PortfolioController.update);
 apiRouter.get("/api/portfolio", PortfolioController.get);
+
+// Experience API
+apiRouter.post("/api/experience", ExperienceController.create);
+apiRouter.get("/api/experience/:experienceId(\\d+)", ExperienceController.get);
+apiRouter.get("/api/experience", ExperienceController.list);
+apiRouter.put(
+  "/api/experience/:experienceId(\\d+)",
+  ExperienceController.update
+);
+apiRouter.delete(
+  "/api/experience/:experienceId(\\d+)",
+  ExperienceController.remove
+);
