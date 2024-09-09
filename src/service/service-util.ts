@@ -29,3 +29,17 @@ export class ExperienceServiceUtil {
     return experience;
   }
 }
+
+export class ActivityServiceUtil {
+  static async checkActivityExistence(id: number, username: string) {
+    const activity = await prismaClient.activity.findFirst({
+      where: { id: id, username: username }
+    })
+
+    if(!activity){
+      throw new ResponseError(404, "Activity not found");
+    }
+
+    return activity;
+  }
+}

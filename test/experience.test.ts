@@ -21,7 +21,6 @@ describe("POST /api/experience", () => {
       .post("/api/experience")
       .set("X-API-TOKEN", "test")
       .send({
-        username: "test",
         company_name: "test",
         position: "test",
         status: "CONTRACT",
@@ -48,7 +47,6 @@ describe("POST /api/experience", () => {
       .post("/api/experience")
       .set("X-API-TOKEN", "test")
       .send({
-        username: "test",
         company_name: "",
         position: "test",
         status: "CONTRACT",
@@ -68,7 +66,6 @@ describe("POST /api/experience", () => {
       .post("/api/experience")
       .set("X-API-TOKEN", "wrong")
       .send({
-        username: "test",
         company_name: "test",
         position: "test",
         status: "CONTRACT",

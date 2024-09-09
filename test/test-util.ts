@@ -1,4 +1,4 @@
-import { Category, Competition, Experience, Predicate, Region, User } from "@prisma/client";
+import { Activity, Category, Competition, Experience, Predicate, Region, User } from "@prisma/client";
 import { prismaClient } from "../src/application/database";
 import bcrypt from "bcrypt";
 
@@ -138,5 +138,43 @@ export class ExperienceTest{
     }
 
     return comp;
+  }
+}
+
+export class ActivityTest{
+  static async create() {
+    await prismaClient.activity.create({
+      data: {
+        username: "test",
+        organization_name: "test",
+        role: "test",
+        description: "test",
+        place: "test",
+        start_date: new Date(),
+        end_date: new Date(),
+      },
+    });
+  }
+
+  static async deleteAll() {
+    await prismaClient.activity.deleteMany({
+      where: {
+        username: "test",
+      },
+    });
+  }
+
+  static async get(): Promise<Activity> {
+    const act = await prismaClient.activity.findFirst({
+      where: {
+        username: "test",
+      },
+    });
+
+    if (!act) {
+      throw new Error("Activity not found");
+    }
+
+    return act;
   }
 }

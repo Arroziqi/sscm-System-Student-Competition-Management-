@@ -4,6 +4,7 @@ import { UserController } from "../controller/user-controller";
 import { CompetitionController } from "../controller/competition-controller";
 import { PortfolioController } from "../controller/portfolio-controller";
 import { ExperienceController } from "../controller/experience-controller";
+import { ActivityController } from "../controller/activity-controller";
 
 export const apiRouter = express.Router();
 apiRouter.use(authMiddleware);
@@ -47,3 +48,10 @@ apiRouter.delete(
   "/api/experience/:experienceId(\\d+)",
   ExperienceController.remove
 );
+
+// Activity API
+apiRouter.post("/api/activity", ActivityController.create);
+apiRouter.get("/api/activity/:activityId(\\d+)", ActivityController.get);
+apiRouter.get("/api/activity", ActivityController.list);
+apiRouter.put("/api/activity/:activityId(\\d+)", ActivityController.update);
+apiRouter.delete("/api/activity/:activityId(\\d+)", ActivityController.remove);
