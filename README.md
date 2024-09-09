@@ -1,4 +1,4 @@
-# SSCM (System Student Competition Management)
+# SSCM (System Student Competition Management) - RESTFUL API
 
 ## SetUp Project
 
